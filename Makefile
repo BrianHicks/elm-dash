@@ -1,5 +1,15 @@
 .PHONY: all
-all: vendor/packge
+all:
+	echo "have a nice day!"
+
+dist: $(glob ts/*) tsconfig.json node_modules
+	./node_modules/.bin/tsc
+
+node_modules: package.json
+	npm install
+	touch -m $@
+
+# vendored stuff
 
 PACKAGE_VERSION:=$(shell cat vendor/package_HEAD)
 vendor/package: vendor/package_HEAD
