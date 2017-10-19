@@ -1,9 +1,13 @@
 .PHONY: all
-all:
-	echo "have a nice day!"
+all: dist
 
-dist: $(glob ts/*) tsconfig.json node_modules
+.PHONY: clean
+clean:
+	rm -rf node_modules vendor/package
+
+dist: $(wildcard ts/*) tsconfig.json node_modules
 	./node_modules/.bin/tsc
+	touch -m $@
 
 node_modules: package.json
 	npm install
